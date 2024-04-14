@@ -11,6 +11,7 @@
 #include <QTextEdit>
 #include <QMessageBox>
 #include <QDebug>
+#include <QCloseEvent>
 
 class DiaryApp : public QWidget {
     Q_OBJECT // Add Q_OBJECT macro to enable signals and slots
@@ -79,6 +80,14 @@ public:
     }
 
 private slots:
+    void closeEvent(QCloseEvent *event) override {
+        if (systemTrayIcon->isVisible()) {
+            hide(); // Hide the window
+            event->ignore(); // Ignore the close event
+        } else {
+            event->accept(); // Accept the close event
+        }
+    }
     void showEntry(const QDate &date) {
         QString dateString = date.toString("yyyy-MM-dd");
         QSqlQuery query;
