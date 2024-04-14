@@ -1,2 +1,2 @@
 # qdiary
-a diary wrote in qt
+a diary wrote in qt and chatGPT
