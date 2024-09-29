@@ -19,7 +19,11 @@ public:
     DiaryApp(QWidget *parent = nullptr) : QWidget(parent) {
         // Initialize database connection
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("diary.db");
+#ifdef __APPLE__
+        db.setDatabaseName("/Applications/qdiary.app/Contents/MacOS/diary.db");
+#else
+      db.setDatabaseName("diary.db");
+#endif
 
         if (!db.open()) {
             qDebug() << "Error: Unable to open database";
